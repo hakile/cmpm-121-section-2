@@ -1,5 +1,3 @@
-//purposely bad code so students can fix it - can make it worse
-
 import "./style.css";
 
 const dino = document.getElementById("dino");
@@ -7,20 +5,20 @@ const cactus = document.getElementById("cactus");
 const bird = document.getElementById("bird");
 
 const scoreText = document.getElementById("scoreText");
-let score = 0;
+let score: number = 0;
 SetText("click to start!");
 
-var isJumping = false;
-let gameOver = true;
+let isJumping: boolean = false;
+let gameOver: boolean = true;
 
 document.addEventListener("mousedown", () => Jump());
 
 requestAnimationFrame(Main);
 
 function Main() {
-  if (gameOver == false) {
+  if (!gameOver) {
     score = score + 1;
-    SetText("Score: " + score);
+    SetText("Score: " + score.toString());
 
     CheckGameOver();
   }
@@ -28,8 +26,8 @@ function Main() {
 }
 
 function Jump() {
-  if (gameOver === false) {
-    if (isJumping == false) {
+  if (!gameOver) {
+    if (!isJumping) {
       isJumping = true;
       dino?.classList.add("jump");
       setTimeout(RemoveJump, 650);
@@ -51,19 +49,19 @@ function RemoveObstacles() {
 }
 
 function CheckGameOver() {
-  if (gameOver == false && dino != null && cactus != null && bird != null) {
+  if (!gameOver && dino != null && cactus != null && bird != null) {
     //get is dinosaur jumping
-    let dinoTop = parseInt(
+    let dinoTop: number = parseInt(
       window.getComputedStyle(dino).getPropertyValue("top")
     );
 
     //get cactus position
-    let cactusleft = parseInt(
+    let cactusleft: number = parseInt(
       window.getComputedStyle(cactus).getPropertyValue("left")
     );
 
     //get bird position
-    let birdleft = parseInt(
+    let birdleft: number = parseInt(
       window.getComputedStyle(bird).getPropertyValue("left")
     );
 
@@ -71,7 +69,7 @@ function CheckGameOver() {
     if (dinoTop >= 150 && Math.abs(cactusleft) < 7) {
       //end game
       console.log("player died!");
-      SetText("Final Score: " + score + "! Click To Play Again!");
+      SetText("Final Score: " + score.toString() + "! Click To Play Again!");
       gameOver = true;
 
       //reset player
@@ -85,7 +83,7 @@ function CheckGameOver() {
     if (dinoTop <= 55 && Math.abs(birdleft) < 11) {
       //end game
       console.log("player died!");
-      SetText("Final Score: " + score + "! Click To Play Again!");
+      SetText("Final Score: " + score.toString() + "! Click To Play Again!");
       gameOver = true;
 
       //reset player
